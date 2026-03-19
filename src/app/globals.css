@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #FEFCF3;
+  color: #1A1A1A;
+}
+
+/* ══ GREENSTONE Custom Utilities ══ */
+@layer components {
+  .gs-card {
+    @apply bg-white rounded-md border border-black/5 shadow-sm;
+  }
+  .gs-input {
+    @apply w-full px-4 py-3 rounded border border-black/10 bg-white font-body text-sm
+    focus:outline-none focus:ring-2 focus:ring-emerald-deep/20 focus:border-emerald-deep
+    transition-all duration-200;
+  }
+  .gs-label {
+    @apply block text-xs font-semibold tracking-wider uppercase text-warm-gray mb-2 font-body;
+  }
+  .gs-btn-primary {
+    @apply bg-emerald-deep text-ivory font-body text-sm font-semibold tracking-wider uppercase
+    px-6 py-3 rounded transition-all duration-300
+    hover:bg-emerald-deep/90 hover:shadow-lg hover:shadow-emerald-deep/20
+    disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .gs-btn-outline {
+    @apply border border-emerald-deep text-emerald-deep font-body text-sm font-semibold tracking-wider uppercase
+    px-6 py-3 rounded transition-all duration-300
+    hover:bg-emerald-deep hover:text-ivory;
+  }
+  .gs-btn-gold {
+    @apply bg-gold text-charcoal font-body text-sm font-semibold tracking-wider uppercase
+    px-6 py-3 rounded transition-all duration-300
+    hover:bg-gold-light hover:shadow-lg;
+  }
+  .gs-badge {
+    @apply inline-block px-3 py-1 text-[10px] font-bold tracking-widest rounded font-body;
+  }
+  .gs-badge-collector {
+    @apply gs-badge bg-gradient-to-r from-gold to-gold-light text-charcoal;
+  }
+  .gs-badge-premium {
+    @apply gs-badge bg-gradient-to-r from-emerald-deep to-emerald-mid text-ivory;
+  }
+  .gs-badge-select {
+    @apply gs-badge bg-gradient-to-r from-emerald-light to-emerald-glow text-emerald-deep;
+  }
+}
+
+/* ══ Scrollbar ══ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #064E3B40; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #064E3B80; }
+
+/* ══ Animations ══ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.5s ease both;
+}

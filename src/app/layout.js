@@ -1,4 +1,5 @@
 import './globals.css';
+import { LangWrapper } from '@/components/layout/LangWrapper';
 
 export const metadata = {
   title: 'GREENSTONE — The Professional Emerald Marketplace',
@@ -7,8 +8,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
-      <body>{children}</body>
+    <html lang="en">
+      <body>
+        <LangWrapper>{children}</LangWrapper>
+      </body>
     </html>
   );
 }

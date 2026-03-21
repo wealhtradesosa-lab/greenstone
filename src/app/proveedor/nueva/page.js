@@ -36,6 +36,7 @@ export default function NewStonePage() {
     lab_name: '',
     cert_number: '',
     precio_base: '',
+    availability: 'inmediata',
   });
 
   const update = (field, value) => setForm(f => ({ ...f, [field]: value }));
@@ -104,6 +105,7 @@ export default function NewStonePage() {
       lab_name: form.lab_name || null,
       cert_number: form.cert_number || null,
       precio_base: parseFloat(form.precio_base) || null,
+      availability: form.availability,
       status: asDraft ? 'borrador' : 'pendiente_revision',
     }).select().single();
 
@@ -200,6 +202,22 @@ export default function NewStonePage() {
                     <option value="resina">Resin</option>
                     <option value="otro">Other</option>
                   </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="gs-label">Availability</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button type="button" onClick={() => update('availability', 'inmediata')}
+                    className={`p-3 rounded border text-center transition-all ${form.availability === 'inmediata' ? 'border-emerald-deep bg-emerald-deep/5 text-emerald-deep' : 'border-black/10 text-warm-gray hover:border-emerald-deep/30'}`}>
+                    <div className="text-lg mb-1">⚡</div>
+                    <div className="font-body text-xs font-semibold">Immediate Availability</div>
+                  </button>
+                  <button type="button" onClick={() => update('availability', 'bajo_pedido')}
+                    className={`p-3 rounded border text-center transition-all ${form.availability === 'bajo_pedido' ? 'border-emerald-deep bg-emerald-deep/5 text-emerald-deep' : 'border-black/10 text-warm-gray hover:border-emerald-deep/30'}`}>
+                    <div className="text-lg mb-1">📦</div>
+                    <div className="font-body text-xs font-semibold">Made to Order · 30 days</div>
+                  </button>
                 </div>
               </div>
 

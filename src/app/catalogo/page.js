@@ -36,6 +36,7 @@ export default function CatalogoPage() {
     origins: [],
     badges: [],
     shapes: [],
+    availability: '',
   });
 
   useEffect(() => {
@@ -78,6 +79,7 @@ export default function CatalogoPage() {
     if (filters.maxPrice) query = query.lte('precio_publicado', parseFloat(filters.maxPrice));
     if (filters.origins.length > 0) query = query.in('origin', filters.origins);
     if (filters.badges.length > 0) query = query.in('badge', filters.badges);
+    if (filters.availability) query = query.eq('availability', filters.availability);
 
     switch (sortBy) {
       case 'price_asc': query = query.order('precio_publicado', { ascending: true }); break;
@@ -210,8 +212,27 @@ export default function CatalogoPage() {
               </div>
             </div>
 
+            {/* Availability */}
+            <div className="mb-5">
+              <label className="gs-label">Availability</label>
+              <div className="space-y-1.5">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" checked={filters.availability === 'inmediata'}
+                    onChange={() => setFilters(f => ({ ...f, availability: f.availability === 'inmediata' ? '' : 'inmediata' }))}
+                    className="w-3.5 h-3.5 rounded border-black/20 text-emerald-deep focus:ring-emerald-deep/20" />
+                  <span className="font-body text-sm text-charcoal">⚡ Immediate</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" checked={filters.availability === 'bajo_pedido'}
+                    onChange={() => setFilters(f => ({ ...f, availability: f.availability === 'bajo_pedido' ? '' : 'bajo_pedido' }))}
+                    className="w-3.5 h-3.5 rounded border-black/20 text-emerald-deep focus:ring-emerald-deep/20" />
+                  <span className="font-body text-sm text-charcoal">📦 Made to Order</span>
+                </label>
+              </div>
+            </div>
+
             {/* Clear */}
-            <button onClick={() => setFilters({ minWeight: '', maxWeight: '', minPrice: '', maxPrice: '', origins: [], badges: [], shapes: [] })}
+            <button onClick={() => setFilters({ minWeight: '', maxWeight: '', minPrice: '', maxPrice: '', origins: [], badges: [], shapes: [], availability: '' })}
               className="font-body text-xs text-emerald-mid hover:text-emerald-deep transition-colors">
               Clear all filters
             </button>
@@ -276,6 +297,15 @@ export default function CatalogoPage() {
                       {stone.badge && (
                         <span className={`absolute top-3 left-3 ${BADGE_STYLES[stone.badge]}`}>{stone.badge}</span>
                       )}
+
+                      {/* Availability */}
+                      <span className={`absolute bottom-3 left-3 px-2 py-1 rounded text-[9px] font-bold tracking-wider backdrop-blur-sm ${
+                        stone.availability === 'bajo_pedido' 
+                          ? 'bg-amber-500/80 text-white' 
+                          : 'bg-emerald-light/80 text-white'
+                      }`}>
+                        {stone.availability === 'bajo_pedido' ? '📦 MADE TO ORDER · 30 DAYS' : '⚡ IMMEDIATE'}
+                      </span>
 
                       {/* Favorite */}
                       <button

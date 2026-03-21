@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { createClient } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { LangSwitcher } from '@/lib/lang';
 
 const NAV_ITEMS = {
   super_admin: [
@@ -79,6 +80,9 @@ export default function DashboardNavbar({ profile }) {
 
         {/* Right side */}
         <div className="flex items-center gap-4">
+          {/* Language switcher */}
+          <LangSwitcher />
+
           {/* Notifications bell */}
           <button className="relative text-white/40 hover:text-ivory transition-colors">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">

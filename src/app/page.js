@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase';
+import { useLang, LangSwitcher } from '@/lib/lang';
 
 const BADGE_STYLES = {
   COLLECTOR: 'bg-gradient-to-r from-[#C8A951] to-[#E2CB7D] text-[#1A1A1A] border-[#C8A951]',
@@ -66,6 +67,7 @@ function StoneCard({ stone }) {
 }
 
 export default function Home() {
+  const { t } = useLang();
   const [scrollY, setScrollY] = useState(0);
   const [stones, setStones] = useState([]);
   const [count, setCount] = useState(0);
@@ -86,13 +88,14 @@ export default function Home() {
           <span className="font-elegant text-[22px] font-semibold tracking-[0.15em] text-ivory">GREENSTONE</span>
         </Link>
         <div className="hidden md:flex items-center gap-9">
-          <a href="#catalog" className="text-xs font-medium tracking-[0.1em] text-white/60 hover:text-[#C8A951] transition-colors">CATALOG</a>
-          <a href="#how" className="text-xs font-medium tracking-[0.1em] text-white/60 hover:text-[#C8A951] transition-colors">HOW IT WORKS</a>
-          <a href="#suppliers" className="text-xs font-medium tracking-[0.1em] text-white/60 hover:text-[#C8A951] transition-colors">FOR SUPPLIERS</a>
-          <a href="#trust" className="text-xs font-medium tracking-[0.1em] text-white/60 hover:text-[#C8A951] transition-colors">ABOUT</a>
+          <a href="#catalog" className="text-xs font-medium tracking-[0.1em] text-white/60 hover:text-[#C8A951] transition-colors">{t.catalog}</a>
+          <a href="#how" className="text-xs font-medium tracking-[0.1em] text-white/60 hover:text-[#C8A951] transition-colors">{t.howItWorks}</a>
+          <a href="#suppliers" className="text-xs font-medium tracking-[0.1em] text-white/60 hover:text-[#C8A951] transition-colors">{t.forSuppliers}</a>
+          <a href="#trust" className="text-xs font-medium tracking-[0.1em] text-white/60 hover:text-[#C8A951] transition-colors">{t.about}</a>
+          <LangSwitcher />
           <div className="w-px h-5 bg-white/15 mx-1" />
-          <Link href="/login" className="text-xs font-medium tracking-[0.1em] text-[#C8A951] hover:text-[#E2CB7D] transition-colors">SIGN IN</Link>
-          <Link href="/register" className="gs-btn-primary !py-2.5 !px-5 !text-[11px]">REQUEST ACCESS</Link>
+          <Link href="/login" className="text-xs font-medium tracking-[0.1em] text-[#C8A951] hover:text-[#E2CB7D] transition-colors">{t.signIn}</Link>
+          <Link href="/register" className="gs-btn-primary !py-2.5 !px-5 !text-[11px]">{t.requestAccess}</Link>
         </div>
       </nav>
 
@@ -101,20 +104,20 @@ export default function Home() {
         <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full animate-pulse" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 60%)' }} />
         <div className="text-center max-w-[800px] px-6 relative z-10">
           <div className="flex items-center justify-center gap-3 mb-7 animate-fade-in">
-            <div className="w-10 h-px bg-[#C8A951]" /><span className="text-[11px] font-semibold tracking-[0.25em] text-[#C8A951] uppercase">The Professional Emerald Marketplace</span><div className="w-10 h-px bg-[#C8A951]" />
+            <div className="w-10 h-px bg-[#C8A951]" /><span className="text-[11px] font-semibold tracking-[0.25em] text-[#C8A951] uppercase">{t.overline}</span><div className="w-10 h-px bg-[#C8A951]" />
           </div>
-          <h1 className="font-display text-[clamp(42px,6vw,72px)] font-normal text-ivory leading-[1.1] mb-6 animate-fade-in">Where Exceptional <em className="italic bg-gradient-to-r from-[#34D399] to-[#C8A951] bg-clip-text text-transparent">Emeralds</em><br />Meet Trusted Trade</h1>
-          <p className="font-elegant text-[clamp(18px,2.2vw,24px)] font-light text-white/45 leading-relaxed max-w-[560px] mx-auto mb-11 animate-fade-in">Curated, verified, and ready to trade.<br />Every stone inspected. Every deal transparent.</p>
+          <h1 className="font-display text-[clamp(42px,6vw,72px)] font-normal text-ivory leading-[1.1] mb-6 animate-fade-in">{t.heroTitle1} <em className="italic bg-gradient-to-r from-[#34D399] to-[#C8A951] bg-clip-text text-transparent">{t.heroTitle2}</em><br />{t.heroTitle3}</h1>
+          <p className="font-elegant text-[clamp(18px,2.2vw,24px)] font-light text-white/45 leading-relaxed max-w-[560px] mx-auto mb-11 animate-fade-in">{t.heroSub1}<br />{t.heroSub2}</p>
           <div className="flex gap-4 justify-center animate-fade-in">
-            <Link href="/register" className="gs-btn-primary border border-[#C8A951]/30">Explore the Catalog</Link>
-            <Link href="/register" className="gs-btn-outline !border-white/20 !text-ivory hover:!bg-white/5">Request Access</Link>
+            <Link href="/register" className="gs-btn-primary border border-[#C8A951]/30">{t.exploreCatalog}</Link>
+            <Link href="/register" className="gs-btn-outline !border-white/20 !text-ivory hover:!bg-white/5">{t.requestAccess}</Link>
           </div>
         </div>
       </section>
 
       {/* STATS */}
       <section className="py-16 px-12 bg-charcoal flex justify-center gap-20 flex-wrap">
-        {[{ n: Math.max(count,500), s: '+', l: 'Verified Stones' },{ n: 120, s: '+', l: 'Active Buyers' },{ n: 15, s: '', l: 'Countries' },{ n: 98, s: '%', l: 'Client Satisfaction' }].map((x,i) => (
+        {[{ n: Math.max(count,500), s: '+', l: t.verifiedStones },{ n: 120, s: '+', l: t.activeBuyers },{ n: 15, s: '', l: t.countries },{ n: 98, s: '%', l: t.clientSatisfaction }].map((x,i) => (
           <div key={i} className="text-center min-w-[140px]">
             <div className="font-display text-[42px] font-normal text-ivory leading-none mb-2"><AnimatedNumber target={x.n} suffix={x.s} /></div>
             <div className="text-[11px] font-medium tracking-[0.15em] text-white/35 uppercase">{x.l}</div>
@@ -125,13 +128,13 @@ export default function Home() {
       {/* HOW IT WORKS */}
       <section id="how" className="py-24 px-12 bg-ivory">
         <div className="text-center max-w-[600px] mx-auto mb-[72px]">
-          <span className="text-[11px] font-semibold tracking-[0.2em] text-emerald-mid uppercase">HOW IT WORKS</span>
-          <h2 className="font-display text-[clamp(30px,4vw,38px)] font-normal text-charcoal mt-4 leading-tight">From Source to Showcase,<br /><em className="italic text-emerald-deep">With Confidence</em></h2>
+          <span className="text-[11px] font-semibold tracking-[0.2em] text-emerald-mid uppercase">{t.howItWorks}</span>
+          <h2 className="font-display text-[clamp(30px,4vw,38px)] font-normal text-charcoal mt-4 leading-tight">{t.howTitle1}<br /><em className="italic text-emerald-deep">{t.howTitle2}</em></h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-[1000px] mx-auto">
-          {[{ s:'01',t:'Suppliers Upload',d:'Verified suppliers submit their inventory with professional photography, certificates, and detailed gemological data.',i:'⬆' },
-            { s:'02',t:'We Inspect & Classify',d:'Our team reviews every stone, assigns a commercial score, and classifies it with our proprietary badge system.',i:'◈' },
-            { s:'03',t:'Buyers Trade Directly',d:'Professional buyers browse curated inventory, make offers, and negotiate transparently through the platform.',i:'⤝' }].map((x,i) => (
+          {[{ s:'01',t:t.step1Title,d:t.step1Desc,i:'⬆' },
+            { s:'02',t:t.step2Title,d:t.step2Desc,i:'◈' },
+            { s:'03',t:t.step3Title,d:t.step3Desc,i:'⤝' }].map((x,i) => (
             <div key={i} className="text-center px-3">
               <div className="font-mono text-xs font-semibold text-[#C8A951] tracking-[0.1em] mb-5">{x.s}</div>
               <div className="w-20 h-20 rounded-full border border-black/5 bg-emerald-deep/[0.03] flex items-center justify-center mx-auto mb-6 text-[28px]">{x.i}</div>
@@ -146,10 +149,10 @@ export default function Home() {
       <section id="catalog" className="py-24 pl-12 bg-pearl">
         <div className="flex justify-between items-end mb-12 pr-12">
           <div>
-            <span className="text-[11px] font-semibold tracking-[0.2em] text-emerald-mid uppercase">FEATURED COLLECTION</span>
-            <h2 className="font-display text-[clamp(30px,4vw,38px)] font-normal text-charcoal mt-3">Exceptional Stones, <em className="italic text-emerald-deep">Ready to Trade</em></h2>
+            <span className="text-[11px] font-semibold tracking-[0.2em] text-emerald-mid uppercase">{t.featuredCollection}</span>
+            <h2 className="font-display text-[clamp(30px,4vw,38px)] font-normal text-charcoal mt-3">{t.featuredTitle1} <em className="italic text-emerald-deep">{t.featuredTitle2}</em></h2>
           </div>
-          <Link href="/register" className="gs-btn-outline !border-emerald-deep !text-emerald-deep hover:!bg-emerald-deep hover:!text-ivory hidden md:inline-block">View All →</Link>
+          <Link href="/register" className="gs-btn-outline !border-emerald-deep !text-emerald-deep hover:!bg-emerald-deep hover:!text-ivory hidden md:inline-block">{t.viewAll}</Link>
         </div>
         <div className="flex gap-6 overflow-x-auto pb-5 pr-12">
           {stones.length > 0 ? stones.map(s => <StoneCard key={s.id} stone={s} />) :
